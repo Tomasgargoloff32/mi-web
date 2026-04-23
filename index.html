@@ -1,0 +1,3339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGCSE Mathematics | Core & Extended Knowledge Base</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #fafafa;
+  --surface2: #f4f4f5;
+  --border: #e4e4e7;
+  --border2: #d1d1d6;
+  --text: #18181b;
+  --muted: #71717a;
+  --hint: #a1a1aa;
+  --core: #1d6f42;
+  --core-bg: #f0faf4;
+  --core-border: #bbf7d0;
+  --ext: #1e40af;
+  --ext-bg: #eff6ff;
+  --ext-border: #bfdbfe;
+  --accent: #7c3aed;
+  --accent-bg: #f5f3ff;
+  --sidebar: 268px;
+  --topbar: 50px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 15px; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+/* ── TOPBAR ── */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--topbar);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0; padding: 0;
+}
+.tb-logo {
+  width: var(--sidebar);
+  padding: 0 20px;
+  display: flex; align-items: center; gap: 8px;
+  border-right: 1px solid var(--border);
+  height: 100%;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: var(--text);
+  cursor: pointer;
+}
+.tb-logo-icon {
+  width: 26px; height: 26px;
+  background: var(--text);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 500;
+  flex-shrink: 0;
+}
+.tb-logo-text { font-size: 14px; font-weight: 600; letter-spacing: -0.02em; }
+.tb-logo-sub { font-size: 11px; color: var(--hint); font-weight: 400; }
+.tb-center {
+  flex: 1; padding: 0 20px;
+  display: flex; align-items: center; gap: 6px;
+}
+.tb-nav-link {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  padding: 4px 10px; border-radius: 6px;
+  transition: background 0.1s, color 0.1s;
+  cursor: pointer; background: none; border: none;
+}
+.tb-nav-link:hover { background: var(--surface2); color: var(--text); }
+.tb-nav-link.active { background: var(--surface2); color: var(--text); font-weight: 500; }
+.tb-right {
+  padding: 0 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.badge-core {
+  font-size: 11px; font-weight: 500;
+  background: var(--core-bg); color: var(--core);
+  border: 1px solid var(--core-border);
+  padding: 2px 8px; border-radius: 4px;
+}
+.badge-ext {
+  font-size: 11px; font-weight: 500;
+  background: var(--ext-bg); color: var(--ext);
+  border: 1px solid var(--ext-border);
+  padding: 2px 8px; border-radius: 4px;
+}
+.tb-search {
+  width: 30px; height: 30px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 7px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--muted);
+}
+
+/* ── LAYOUT ── */
+#layout { display: flex; padding-top: var(--topbar); min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar);
+  flex-shrink: 0;
+  position: fixed; top: var(--topbar); left: 0; bottom: 0;
+  overflow-y: auto; overflow-x: hidden;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+#sidebar::-webkit-scrollbar { width: 3px; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.sb-topic {
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+.sb-topic-header {
+  padding: 10px 16px 6px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.sb-topic-label {
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--hint);
+}
+.sb-topic-num {
+  font-size: 10px; color: var(--hint);
+  font-family: 'JetBrains Mono', monospace;
+}
+.sb-chapters { display: block; }
+.sb-ch {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 16px 5px 20px;
+  text-decoration: none; cursor: pointer;
+  color: var(--muted); font-size: 12.5px;
+  transition: background 0.1s, color 0.1s;
+  border-left: 2px solid transparent;
+  border: none; background: none; width: 100%; text-align: left;
+}
+.sb-ch:hover { background: var(--surface2); color: var(--text); }
+.sb-ch.active {
+  background: var(--surface2); color: var(--text);
+  border-left: 2px solid var(--text); font-weight: 500;
+}
+.sb-ch-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--hint);
+  min-width: 18px; flex-shrink: 0;
+}
+.sb-ch-ext-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ext); margin-left: auto; flex-shrink: 0;
+  display: none;
+}
+.sb-ch.has-ext .sb-ch-ext-dot { display: block; }
+
+/* ── MAIN ── */
+#main {
+  margin-left: var(--sidebar);
+  flex: 1; min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+.content { width: 100%; max-width: 780px; padding: 40px 48px 80px; }
+
+/* ── PAGE SYSTEM ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── HOME ── */
+.home-hero {
+  padding: 0 0 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+.home-eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--hint); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.home-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--border2); }
+.home-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 2.4rem; font-weight: 700;
+  line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--text); margin-bottom: 14px;
+}
+.home-desc {
+  font-size: 15px; color: var(--muted);
+  max-width: 560px; line-height: 1.7;
+  margin-bottom: 24px;
+}
+.home-legend {
+  display: flex; gap: 20px; align-items: center;
+  font-size: 12px; color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: fit-content;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+/* ── TOPIC SECTION ── */
+.topic-section { margin-bottom: 40px; }
+.topic-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.topic-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  color: var(--hint);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 2px 7px; border-radius: 4px;
+}
+.topic-title {
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.topic-ch-count { font-size: 11px; color: var(--hint); margin-left: auto; }
+
+/* ── CHAPTER CARD ── */
+.ch-grid { display: flex; flex-direction: column; gap: 4px; }
+.ch-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 7px; cursor: pointer;
+  transition: border-color 0.1s, background 0.1s;
+  text-align: left; width: 100%;
+}
+.ch-card:hover { border-color: var(--border2); background: var(--surface); }
+.ch-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--hint);
+  min-width: 22px;
+}
+.ch-name { font-size: 13.5px; font-weight: 500; color: var(--text); flex: 1; text-align: left; }
+.ch-syllabus { font-size: 11px; color: var(--hint); font-family: 'JetBrains Mono', monospace; }
+.ch-badges { display: flex; gap: 4px; }
+.badge-sm {
+  font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px;
+  letter-spacing: 0.03em;
+}
+.badge-sm.core { background: var(--core-bg); color: var(--core); }
+.badge-sm.ext { background: var(--ext-bg); color: var(--ext); }
+
+/* ── CHAPTER PAGE ── */
+.ch-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--hint);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.ch-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.9rem; font-weight: 700;
+  line-height: 1.25; letter-spacing: -0.02em;
+  color: var(--text); margin-bottom: 16px;
+}
+.ch-meta {
+  display: flex; gap: 8px; align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.meta-pill {
+  font-size: 11.5px; background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 3px 9px; border-radius: 5px; color: var(--muted);
+}
+
+/* ── SYLLABUS BLOCKS ── */
+.syllabus-section { margin-bottom: 32px; }
+.syllabus-section-title {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--hint);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.syllabus-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.syllabus-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+.syllabus-item-header {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg);
+}
+.syl-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  color: var(--hint);
+  min-width: 40px; padding-top: 1px;
+}
+.syl-text {
+  font-size: 13.5px; color: var(--text);
+  line-height: 1.55; flex: 1;
+}
+.syl-badge-wrap { display: flex; align-items: flex-start; padding-top: 2px; }
+
+/* EXT-only block */
+.ext-only {
+  background: var(--ext-bg);
+  border-top: 1px solid var(--ext-border);
+  padding: 10px 14px 10px calc(14px + 50px);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.ext-only-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ext);
+  white-space: nowrap; padding-top: 2px;
+  min-width: 60px;
+}
+.ext-only-text { font-size: 13px; color: var(--ext); line-height: 1.5; }
+
+/* VOCAB GRID */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 5px; margin: 10px 0;
+}
+.vocab-pill {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 5px; padding: 5px 10px;
+  font-size: 12px; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* EXAMPLE BOX */
+.example-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--text);
+  border-radius: 0 7px 7px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+}
+.example-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--hint);
+  margin-bottom: 8px;
+}
+.example-math {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: var(--text);
+  line-height: 1.8;
+}
+
+/* TIP BOX */
+.tip-box {
+  background: #fffbeb; border: 1px solid #fde68a;
+  border-radius: 7px; padding: 12px 14px;
+  margin: 14px 0; display: flex; gap: 10px;
+}
+.tip-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.tip-text { font-size: 13px; color: #78350f; line-height: 1.55; }
+
+/* NAV BETWEEN PAGES */
+.ch-nav {
+  display: flex; gap: 8px; justify-content: space-between;
+  margin-top: 40px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.ch-nav-btn {
+  flex: 1; max-width: 48%;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 7px; padding: 10px 14px;
+  cursor: pointer; text-align: left;
+  transition: border-color 0.1s;
+}
+.ch-nav-btn:hover { border-color: var(--border2); }
+.ch-nav-btn.right { text-align: right; }
+.ch-nav-dir { font-size: 10px; color: var(--hint); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+.ch-nav-name { font-size: 13px; font-weight: 500; color: var(--text); }
+
+/* RIGHT PANEL */
+#rpanel {
+  width: 220px; flex-shrink: 0;
+  padding: 32px 20px;
+  border-left: 1px solid var(--border);
+  position: sticky; top: var(--topbar);
+  height: calc(100vh - var(--topbar));
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.rp-title {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--hint);
+  margin-bottom: 8px;
+}
+.rp-list { list-style: none; }
+.rp-list li { border-bottom: 1px solid var(--border); }
+.rp-list li:last-child { border-bottom: none; }
+.rp-list button {
+  width: 100%; text-align: left; background: none; border: none;
+  padding: 6px 0; font-size: 12.5px; color: var(--muted);
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  gap: 8px;
+}
+.rp-list button:hover { color: var(--text); }
+.rp-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--hint); flex-shrink: 0;
+}
+
+/* FORMULA CARDS */
+.formula-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 12px;
+  margin-bottom: 6px;
+}
+.formula-title { font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.formula-math {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: var(--text);
+  line-height: 1.7;
+}
+.formula-note { font-size: 11px; color: var(--hint); margin-top: 4px; }
+
+/* responsive */
+@media(max-width:1200px){ #rpanel { display:none; } }
+@media(max-width:768px){
+  #sidebar { display:none; }
+  #main { margin-left:0; }
+  .content { padding: 24px 18px 60px; }
+  .home-title { font-size:1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header id="topbar">
+  <div class="tb-logo" onclick="showPage('home')">
+    <div class="tb-logo-icon">∑</div>
+    <div>
+      <div class="tb-logo-text">IGCSE Math</div>
+      <div class="tb-logo-sub">Core & Extended</div>
+    </div>
+  </div>
+  <div class="tb-center">
+    <button class="tb-nav-link active" onclick="showPage('home')">Explore</button>
+    <button class="tb-nav-link" onclick="showTopic(1)">Number</button>
+    <button class="tb-nav-link" onclick="showTopic(2)">Algebra</button>
+    <button class="tb-nav-link" onclick="showTopic(4)">Geometry</button>
+    <button class="tb-nav-link" onclick="showTopic(8)">Probability</button>
+    <button class="tb-nav-link" onclick="showTopic(9)">Statistics</button>
+  </div>
+  <div class="tb-right">
+    <span class="badge-core">Core</span>
+    <span class="badge-ext">Extended</span>
+    <div class="tb-search">⌕</div>
+  </div>
+</header>
+
+<div id="layout">
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+
+  <!-- TOPIC 1 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 1 · Number</span>
+      <span class="sb-topic-num">Ch 1–10</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch1')"><span class="sb-ch-num">01</span>Number and language<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch2')"><span class="sb-ch-num">02</span>Accuracy<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch3')"><span class="sb-ch-num">03</span>Calculations and order<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch4')"><span class="sb-ch-num">04</span>Integers, fractions, decimals<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch5')"><span class="sb-ch-num">05</span>Further percentages<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch6')"><span class="sb-ch-num">06</span>Ratio and proportion<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch7')"><span class="sb-ch-num">07</span>Indices and standard form<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch8')"><span class="sb-ch-num">08</span>Money and finance<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch9')"><span class="sb-ch-num">09</span>Time<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch10')"><span class="sb-ch-num">10</span>Set notation & Venn diagrams<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 2 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 2 · Algebra & Graphs</span>
+      <span class="sb-topic-num">Ch 11–20</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch11')"><span class="sb-ch-num">11</span>Algebraic representation<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch12')"><span class="sb-ch-num">12</span>Algebraic indices<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch13')"><span class="sb-ch-num">13</span>Equations and inequalities<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch14')"><span class="sb-ch-num">14</span>Linear programming<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch15')"><span class="sb-ch-num">15</span>Sequences<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch16')"><span class="sb-ch-num">16</span>Proportion<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch17')"><span class="sb-ch-num">17</span>Graphs in practical situations<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch18')"><span class="sb-ch-num">18</span>Graphs of functions<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch19')"><span class="sb-ch-num">19</span>Differentiation<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch20')"><span class="sb-ch-num">20</span>Functions<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 3 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 3 · Coordinate Geometry</span>
+      <span class="sb-topic-num">Ch 21</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch21')"><span class="sb-ch-num">21</span>Straight line graphs<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 4 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 4 · Geometry</span>
+      <span class="sb-topic-num">Ch 22–25</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch22')"><span class="sb-ch-num">22</span>Geometrical vocabulary<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch23')"><span class="sb-ch-num">23</span>Similarity and congruence<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch24')"><span class="sb-ch-num">24</span>Symmetry<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch25')"><span class="sb-ch-num">25</span>Angle properties<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 5 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 5 · Mensuration</span>
+      <span class="sb-topic-num">Ch 26–27</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch" onclick="showPage('ch26')"><span class="sb-ch-num">26</span>Measures<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch27')"><span class="sb-ch-num">27</span>Perimeter, area and volume<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 6 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 6 · Trigonometry</span>
+      <span class="sb-topic-num">Ch 28–30</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch" onclick="showPage('ch28')"><span class="sb-ch-num">28</span>Bearings<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch29')"><span class="sb-ch-num">29</span>Trigonometry<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch30')"><span class="sb-ch-num">30</span>Further trigonometry<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 7 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 7 · Vectors & Transforms</span>
+      <span class="sb-topic-num">Ch 31–32</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch31')"><span class="sb-ch-num">31</span>Vectors<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch32')"><span class="sb-ch-num">32</span>Transformations<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 8 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 8 · Probability</span>
+      <span class="sb-topic-num">Ch 33–34</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch33')"><span class="sb-ch-num">33</span>Probability<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch34')"><span class="sb-ch-num">34</span>Further probability<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 9 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 9 · Statistics</span>
+      <span class="sb-topic-num">Ch 35–37</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch" onclick="showPage('ch35')"><span class="sb-ch-num">35</span>Mean, median, mode, range<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch36')"><span class="sb-ch-num">36</span>Collecting & displaying data<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch37')"><span class="sb-ch-num">37</span>Cumulative frequency<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+<div class="content">
+
+<!-- ══════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div class="home-eyebrow">Cambridge IGCSE · 4th Edition · Pimentel & Wall</div>
+    <h1 class="home-title">IGCSE Mathematics<br>Knowledge Base</h1>
+    <p class="home-desc">All 37 chapters of the Cambridge IGCSE Mathematics syllabus, structured by topic. Each chapter clearly marks which content is Core-only and which requirements are Extended-only.</p>
+    <div class="home-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--core);"></div>
+        <span><strong>Core</strong> — required for all candidates</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--ext);"></div>
+        <span><strong>Extended</strong> — additional content for 0580/Extended</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--hint); border-radius:50%;"></div>
+        <span>Blue dot in sidebar = chapter has Extended-only content</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 1 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 1</span>
+      <span class="topic-title">Number</span>
+      <span class="topic-ch-count">Chapters 1–10</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch1')"><span class="ch-num">01</span><span class="ch-name">Number and language</span><span class="ch-syllabus">E1.1, E1.3, E1.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch2')"><span class="ch-num">02</span><span class="ch-name">Accuracy</span><span class="ch-syllabus">E1.9, E1.10</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch3')"><span class="ch-num">03</span><span class="ch-name">Calculations and order</span><span class="ch-syllabus">E1.6, E1.13</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch4')"><span class="ch-num">04</span><span class="ch-name">Integers, fractions, decimals and percentages</span><span class="ch-syllabus">E1.5, E1.8</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch5')"><span class="ch-num">05</span><span class="ch-name">Further percentages</span><span class="ch-syllabus">E1.12</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch6')"><span class="ch-num">06</span><span class="ch-name">Ratio and proportion</span><span class="ch-syllabus">E1.11</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch7')"><span class="ch-num">07</span><span class="ch-name">Indices and standard form</span><span class="ch-syllabus">E1.7</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch8')"><span class="ch-num">08</span><span class="ch-name">Money and finance</span><span class="ch-syllabus">E1.15–E1.17</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch9')"><span class="ch-num">09</span><span class="ch-name">Time</span><span class="ch-syllabus">E1.14</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch10')"><span class="ch-num">10</span><span class="ch-name">Set notation and Venn diagrams</span><span class="ch-syllabus">E1.2</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 2 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 2</span>
+      <span class="topic-title">Algebra and Graphs</span>
+      <span class="topic-ch-count">Chapters 11–20</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch11')"><span class="ch-num">11</span><span class="ch-name">Algebraic representation and manipulation</span><span class="ch-syllabus">E2.1–E2.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch12')"><span class="ch-num">12</span><span class="ch-name">Algebraic indices</span><span class="ch-syllabus">E2.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch13')"><span class="ch-num">13</span><span class="ch-name">Equations and inequalities</span><span class="ch-syllabus">E2.5–E2.7</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch14')"><span class="ch-num">14</span><span class="ch-name">Linear programming</span><span class="ch-syllabus">E2.8</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+      <button class="ch-card" onclick="showPage('ch15')"><span class="ch-num">15</span><span class="ch-name">Sequences</span><span class="ch-syllabus">E2.9, E2.10</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch16')"><span class="ch-num">16</span><span class="ch-name">Proportion</span><span class="ch-syllabus">E2.11</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch17')"><span class="ch-num">17</span><span class="ch-name">Graphs in practical situations</span><span class="ch-syllabus">E2.12</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch18')"><span class="ch-num">18</span><span class="ch-name">Graphs of functions</span><span class="ch-syllabus">E2.13</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch19')"><span class="ch-num">19</span><span class="ch-name">Differentiation and the gradient function</span><span class="ch-syllabus">E2.14</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+      <button class="ch-card" onclick="showPage('ch20')"><span class="ch-num">20</span><span class="ch-name">Functions</span><span class="ch-syllabus">E2.15</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 3 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 3</span>
+      <span class="topic-title">Coordinate Geometry</span>
+      <span class="topic-ch-count">Chapter 21</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch21')"><span class="ch-num">21</span><span class="ch-name">Straight line graphs</span><span class="ch-syllabus">E3.1–E3.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 4 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 4</span>
+      <span class="topic-title">Geometry</span>
+      <span class="topic-ch-count">Chapters 22–25</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch22')"><span class="ch-num">22</span><span class="ch-name">Geometrical vocabulary and construction</span><span class="ch-syllabus">E4.1–E4.3</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch23')"><span class="ch-num">23</span><span class="ch-name">Similarity and congruence</span><span class="ch-syllabus">E4.3, E4.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch24')"><span class="ch-num">24</span><span class="ch-name">Symmetry</span><span class="ch-syllabus">E4.5</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch25')"><span class="ch-num">25</span><span class="ch-name">Angle properties</span><span class="ch-syllabus">E4.6, E4.7</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 5 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 5</span>
+      <span class="topic-title">Mensuration</span>
+      <span class="topic-ch-count">Chapters 26–27</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch26')"><span class="ch-num">26</span><span class="ch-name">Measures</span><span class="ch-syllabus">E5.1</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch27')"><span class="ch-num">27</span><span class="ch-name">Perimeter, area and volume</span><span class="ch-syllabus">E5.2–E5.5</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 6 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 6</span>
+      <span class="topic-title">Trigonometry</span>
+      <span class="topic-ch-count">Chapters 28–30</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch28')"><span class="ch-num">28</span><span class="ch-name">Bearings</span><span class="ch-syllabus">E6.1</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch29')"><span class="ch-num">29</span><span class="ch-name">Trigonometry</span><span class="ch-syllabus">E6.2–E6.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch30')"><span class="ch-num">30</span><span class="ch-name">Further trigonometry</span><span class="ch-syllabus">E6.4, E6.5</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 7 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 7</span>
+      <span class="topic-title">Vectors and Transformations</span>
+      <span class="topic-ch-count">Chapters 31–32</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch31')"><span class="ch-num">31</span><span class="ch-name">Vectors</span><span class="ch-syllabus">E7.1</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch32')"><span class="ch-num">32</span><span class="ch-name">Transformations</span><span class="ch-syllabus">E7.2, E7.3</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 8 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 8</span>
+      <span class="topic-title">Probability</span>
+      <span class="topic-ch-count">Chapters 33–34</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch33')"><span class="ch-num">33</span><span class="ch-name">Probability</span><span class="ch-syllabus">E8.1–E8.3</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch34')"><span class="ch-num">34</span><span class="ch-name">Further probability</span><span class="ch-syllabus">E8.4, E8.5</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 9 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 9</span>
+      <span class="topic-title">Statistics</span>
+      <span class="topic-ch-count">Chapters 35–37</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch35')"><span class="ch-num">35</span><span class="ch-name">Mean, median, mode and range</span><span class="ch-syllabus">E9.3</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch36')"><span class="ch-num">36</span><span class="ch-name">Collecting, displaying and interpreting data</span><span class="ch-syllabus">E9.1, E9.2</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch37')"><span class="ch-num">37</span><span class="ch-name">Cumulative frequency</span><span class="ch-syllabus">E9.4</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+    </div>
+  </div>
+</div><!-- end home -->
+
+
+<!-- ══════════════════════════════════════════
+     CH 1: Number and language
+══════════════════════════════════════════ -->
+<div id="page-ch1" class="page">
+  <div class="ch-eyebrow">Topic 1 · Number &nbsp;·&nbsp; E1.1, E1.3, E1.4</div>
+  <h1 class="ch-title">Number and language</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 1</span>
+    <span class="meta-pill">Page 4</span>
+    <span class="meta-pill">Pimentel & Wall, 4th ed.</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core & Extended — E1.1</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.1</span>
+        <span class="syl-text">Identify and use <strong>natural numbers, integers</strong> (positive, negative and zero), <strong>prime numbers</strong>, square and cube numbers, common factors and common multiples, rational and irrational numbers (e.g. π, √2), real numbers, and reciprocals.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.3</span>
+        <span class="syl-text">Calculate with squares, square roots, cubes and cube roots and other powers and roots of numbers.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.4</span>
+        <span class="syl-text">Use directed numbers in practical situations.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key vocabulary and number types</div>
+    <div class="vocab-grid">
+      <div class="vocab-pill">Natural numbers ℕ</div>
+      <div class="vocab-pill">Integers ℤ</div>
+      <div class="vocab-pill">Rational numbers ℚ</div>
+      <div class="vocab-pill">Irrational numbers</div>
+      <div class="vocab-pill">Real numbers ℝ</div>
+      <div class="vocab-pill">Prime numbers</div>
+      <div class="vocab-pill">Square numbers</div>
+      <div class="vocab-pill">Cube numbers</div>
+      <div class="vocab-pill">HCF / LCM</div>
+      <div class="vocab-pill">Reciprocal</div>
+      <div class="vocab-pill">Directed numbers</div>
+    </div>
+
+    <div class="example-box">
+      <div class="example-label">Key definitions</div>
+      <div class="example-math">
+        ℕ = {0, 1, 2, 3, 4, …}<br>
+        ℤ = {…, −2, −1, 0, 1, 2, …}<br>
+        ℚ = all numbers of the form p/q  (q ≠ 0)<br>
+        Irrational: cannot be written as p/q  (e.g. π, √2, √3)<br>
+        Reciprocal of x = 1/x  (e.g. reciprocal of 4 = 0.25)
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">★</div>
+      <div class="tip-text">All integers are rational (e.g. 5 = 5/1), but not all rationals are integers. Irrational numbers have decimal expansions that never terminate and never repeat.</div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('home')">
+      <div class="ch-nav-dir">← Back</div>
+      <div class="ch-nav-name">Home · All topics</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch2')">
+      <div class="ch-nav-dir">Next →</div>
+      <div class="ch-nav-name">Ch 2 · Accuracy</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 2: Accuracy
+══════════════════════════════════════════ -->
+<div id="page-ch2" class="page">
+  <div class="ch-eyebrow">Topic 1 · Number &nbsp;·&nbsp; E1.9, E1.10</div>
+  <h1 class="ch-title">Accuracy</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 2</span><span class="meta-pill">Page 13</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E1.9</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.9</span>
+        <span class="syl-text">Make estimates of numbers, quantities and lengths. Give approximations to specified numbers of <strong>significant figures</strong> and <strong>decimal places</strong> and round off answers to reasonable accuracy in the context of a given problem.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core & Extended — E1.10</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.10</span>
+        <span class="syl-text">Give appropriate <strong>upper and lower bounds</strong> for data given to a specified accuracy.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Obtain appropriate upper and lower bounds to solutions of simple problems given data to a specified accuracy (error intervals in calculations).</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key concepts</div>
+    <div class="example-box">
+      <div class="example-label">Rounding rules</div>
+      <div class="example-math">
+        3.456 to 2 d.p.  → 3.46<br>
+        3.456 to 2 s.f.  → 3.5<br>
+        0.007821 to 2 s.f. → 0.0078<br><br>
+        Bounds: x = 4.3 (1 d.p.)<br>
+        Lower bound = 4.25,  Upper bound = 4.35
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">★</div>
+      <div class="tip-text">For Extended: when adding two measured values, add their upper bounds for the maximum result, and add their lower bounds for the minimum result. For subtraction, use upper − lower for maximum and lower − upper for minimum.</div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch1')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 1 · Number and language</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch7')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 7 · Indices & standard form</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 7: Indices and Standard Form
+══════════════════════════════════════════ -->
+<div id="page-ch7" class="page">
+  <div class="ch-eyebrow">Topic 1 · Number &nbsp;·&nbsp; E1.7</div>
+  <h1 class="ch-title">Indices and standard form</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 7</span><span class="meta-pill">Page 62</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core & Extended — E1.7</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.7</span>
+        <span class="syl-text">Understand the meaning of indices (fractional, negative and zero) and use the rules of indices. Use the standard form A × 10ⁿ where n is a positive or negative integer, and 1 ≤ A &lt; 10.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Laws of indices</div>
+    <div class="example-box">
+      <div class="example-label">Core rules (all candidates)</div>
+      <div class="example-math">
+        aᵐ × aⁿ = aᵐ⁺ⁿ<br>
+        aᵐ ÷ aⁿ = aᵐ⁻ⁿ<br>
+        (aᵐ)ⁿ   = aᵐⁿ<br>
+        a⁰      = 1<br>
+        a⁻ⁿ     = 1/aⁿ
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color: var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Extended — fractional indices</div>
+      <div class="example-math">
+        a^(1/n) = ⁿ√a<br>
+        a^(m/n) = (ⁿ√a)ᵐ = ⁿ√(aᵐ)<br><br>
+        e.g. 27^(2/3) = (³√27)² = 3² = 9
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="example-label">Standard form</div>
+      <div class="example-math">
+        3 500 000 = 3.5 × 10⁶<br>
+        0.00042  = 4.2 × 10⁻⁴<br><br>
+        Condition: 1 ≤ A &lt; 10
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch6')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 6 · Ratio and proportion</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch11')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 11 · Algebraic representation</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 11: Algebraic representation
+══════════════════════════════════════════ -->
+<div id="page-ch11" class="page">
+  <div class="ch-eyebrow">Topic 2 · Algebra & Graphs &nbsp;·&nbsp; E2.1–E2.4</div>
+  <h1 class="ch-title">Algebraic representation and manipulation</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 11</span><span class="meta-pill">Page 102</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E2.1 / E2.2</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.1</span>
+        <span class="syl-text">Use letters to express generalised numbers and express basic arithmetic processes algebraically. Substitute numbers for words and letters in formulae. Rearrange simple formulae. Construct simple expressions and set up simple equations.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.2</span>
+        <span class="syl-text">Manipulate directed numbers. Use brackets and extract common factors. Expand products of algebraic expressions.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Factorise where possible expressions of the form: ax + bx + kay + kby; a²x² − b²y²; a² + 2ab + b²; ax² + bx + c. Manipulate algebraic fractions.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Factorising — Extended</div>
+    <div class="example-box" style="border-left-color: var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Key factorisation types</div>
+      <div class="example-math">
+        Common factor:      6x² + 9x = 3x(2x + 3)<br>
+        Difference of squares: a² − b² = (a+b)(a−b)<br>
+        Perfect square:    x² + 6x + 9 = (x+3)²<br>
+        Trinomial:         x² + 7x + 12 = (x+3)(x+4)<br>
+        Grouping:          ax + ay + bx + by = (a+b)(x+y)
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch7')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 7 · Indices & standard form</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch13')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 13 · Equations & inequalities</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 13: Equations and inequalities
+══════════════════════════════════════════ -->
+<div id="page-ch13" class="page">
+  <div class="ch-eyebrow">Topic 2 · Algebra & Graphs &nbsp;·&nbsp; E2.5–E2.7</div>
+  <h1 class="ch-title">Equations and inequalities</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 13</span><span class="meta-pill">Page 126</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E2.5</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.5</span>
+        <span class="syl-text">Derive and solve simple linear equations in one unknown. Derive and solve simultaneous linear equations in two unknowns.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Derive and solve quadratic equations by factorisation, completing the square, and by using the quadratic formula. Derive and solve simultaneous equations (one linear, one quadratic).</span>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.6</span>
+        <span class="syl-text">Represent inequalities on a number line. Solve simple linear inequalities.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Quadratic formula — Extended</div>
+    <div class="example-box" style="border-left-color: var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Quadratic formula</div>
+      <div class="example-math">
+        ax² + bx + c = 0<br><br>
+        x = (−b ± √(b²−4ac)) / 2a<br><br>
+        Discriminant Δ = b²−4ac<br>
+        Δ &gt; 0 → two real roots<br>
+        Δ = 0 → one repeated root<br>
+        Δ &lt; 0 → no real roots
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch11')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 11 · Algebraic representation</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch18')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 18 · Graphs of functions</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 18: Graphs of functions
+══════════════════════════════════════════ -->
+<div id="page-ch18" class="page">
+  <div class="ch-eyebrow">Topic 2 · Algebra & Graphs &nbsp;·&nbsp; E2.13</div>
+  <h1 class="ch-title">Graphs of functions</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 18</span><span class="meta-pill">Page 193</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E2.13</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.13</span>
+        <span class="syl-text">Construct tables of values and draw, recognise and interpret graphs for functions of the form axⁿ (n ∈ {−2,−1,0,1,2,3}) and simple sums of not more than three of these. Solve associated equations graphically, including finding and interpreting roots.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Also: exponential functions y = kˣ for positive k; draw and interpret graphs, recognise and use symmetry. Estimate gradients of curves by drawing tangents. Apply to real contexts.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Function types you must know</div>
+    <div class="vocab-grid">
+      <div class="vocab-pill">y = mx + c  (linear)</div>
+      <div class="vocab-pill">y = ax² + bx + c</div>
+      <div class="vocab-pill">y = ax³</div>
+      <div class="vocab-pill">y = a/x  (hyperbola)</div>
+      <div class="vocab-pill">y = a/x²</div>
+      <div class="vocab-pill">y = kˣ  (Ext)</div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">★</div>
+      <div class="tip-text">For Extended: the gradient at a point on a curve equals the gradient of the tangent drawn at that point. To estimate, draw a tangent by hand and calculate rise/run.</div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch13')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 13 · Equations & inequalities</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch21')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 21 · Straight line graphs</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 21: Straight line graphs
+══════════════════════════════════════════ -->
+<div id="page-ch21" class="page">
+  <div class="ch-eyebrow">Topic 3 · Coordinate Geometry &nbsp;·&nbsp; E3.1–E3.4</div>
+  <h1 class="ch-title">Straight line graphs</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 21</span><span class="meta-pill">Page 250</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core & Extended — E3.1–E3.4</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E3.1</span>
+        <span class="syl-text">Demonstrate familiarity with Cartesian coordinates in two dimensions. Interpret and obtain the equation of a straight-line graph in the form y = mx + c.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E3.2</span>
+        <span class="syl-text">Calculate the gradient of a straight line from the coordinates of two points on it.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E3.3–E3.4</span>
+        <span class="syl-text">Calculate the length and the coordinates of the midpoint of a line segment from the coordinates of its endpoints.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Know that the gradient of parallel lines is equal. Know that the gradients of perpendicular lines multiply to give −1. Find the equation of a line parallel or perpendicular to a given line.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key formulas</div>
+    <div class="example-box">
+      <div class="example-label">All candidates</div>
+      <div class="example-math">
+        Gradient:  m = (y₂−y₁) / (x₂−x₁)<br>
+        Equation:  y = mx + c<br>
+        Midpoint:  M = ((x₁+x₂)/2 , (y₁+y₂)/2)<br>
+        Length:    d = √((x₂−x₁)² + (y₂−y₁)²)
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color:var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Extended only</div>
+      <div class="example-math">
+        Parallel lines:      m₁ = m₂<br>
+        Perpendicular lines: m₁ × m₂ = −1
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch18')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 18 · Graphs of functions</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch27')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 27 · Perimeter, area & volume</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 27: Perimeter, area and volume
+══════════════════════════════════════════ -->
+<div id="page-ch27" class="page">
+  <div class="ch-eyebrow">Topic 5 · Mensuration &nbsp;·&nbsp; E5.2–E5.5</div>
+  <h1 class="ch-title">Perimeter, area and volume</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 27</span><span class="meta-pill">Page 351</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E5.2 Formulae</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E5.2</span>
+        <span class="syl-text">Carry out calculations involving the perimeter and area of a rectangle, triangle, parallelogram and trapezium, and compound shapes derived from these.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E5.3</span>
+        <span class="syl-text">Carry out calculations involving the circumference and area of a circle, arc length and area of sector.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E5.4–E5.5</span>
+        <span class="syl-text">Surface area and volume of cuboid, prism, cylinder. Surface area and volume of sphere, pyramid and cone.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Solve problems involving the surface area and volume of a sphere, pyramid and cone. Apply to compound 3D shapes.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Formula reference</div>
+    <div class="example-box">
+      <div class="example-label">2D shapes</div>
+      <div class="example-math">
+        Rectangle:    A = lw<br>
+        Triangle:     A = ½bh<br>
+        Parallelogram:A = bh<br>
+        Trapezium:    A = ½(a+b)h<br>
+        Circle:       A = πr²,  C = 2πr<br>
+        Sector:       A = (θ/360)πr²,  arc = (θ/360)2πr
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="example-label">3D shapes</div>
+      <div class="example-math">
+        Cuboid:    V = lwh<br>
+        Cylinder:  V = πr²h,  SA = 2πr² + 2πrh<br>
+        Sphere:    V = (4/3)πr³,  SA = 4πr²<br>
+        Cone:      V = (1/3)πr²h,  SA = πrl + πr²<br>
+        Pyramid:   V = (1/3) × base area × h
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch21')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 21 · Straight line graphs</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch29')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 29 · Trigonometry</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 29: Trigonometry
+══════════════════════════════════════════ -->
+<div id="page-ch29" class="page">
+  <div class="ch-eyebrow">Topic 6 · Trigonometry &nbsp;·&nbsp; E6.2–E6.4</div>
+  <h1 class="ch-title">Trigonometry</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 29</span><span class="meta-pill">Page 394</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E6.2 Right-angled triangles</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E6.2</span>
+        <span class="syl-text">Interpret and use three-figure bearings. Apply Pythagoras' theorem and the trigonometric ratios (sin, cos, tan) to the calculation of a side or of an angle of a right-angled triangle.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Know and use sine rule and cosine rule for any triangle. Find the area of a triangle using: A = ½ab sin C.</span>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E6.3</span>
+        <span class="syl-text">Solve trigonometric problems in 2D involving angles of elevation and depression.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Formulas</div>
+    <div class="example-box">
+      <div class="example-label">Right-angled triangles (all candidates)</div>
+      <div class="example-math">
+        sin θ = opposite / hypotenuse<br>
+        cos θ = adjacent / hypotenuse<br>
+        tan θ = opposite / adjacent<br><br>
+        Pythagoras: a² + b² = c²
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color:var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Sine & cosine rules — Extended</div>
+      <div class="example-math">
+        Sine rule:   a/sin A = b/sin B = c/sin C<br>
+        Cosine rule: a² = b² + c² − 2bc cos A<br>
+        Area:        A = ½ ab sin C
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch27')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 27 · Perimeter, area & volume</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch33')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 33 · Probability</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 33: Probability
+══════════════════════════════════════════ -->
+<div id="page-ch33" class="page">
+  <div class="ch-eyebrow">Topic 8 · Probability &nbsp;·&nbsp; E8.1–E8.3</div>
+  <h1 class="ch-title">Probability</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 33</span><span class="meta-pill">Page 476</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E8.1–E8.3</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E8.1</span>
+        <span class="syl-text">Calculate the probability of a single event as either a fraction, decimal or percentage. Understand and use the probability scale 0 to 1.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E8.2</span>
+        <span class="syl-text">Understand that the probability of an event not occurring = 1 − P(event occurring). Use possibility diagrams and tree diagrams.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Calculate conditional probability using Venn diagrams, tree diagrams and tables. Understand and apply P(A|B).</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key rules</div>
+    <div class="example-box">
+      <div class="example-label">Core rules</div>
+      <div class="example-math">
+        0 ≤ P(A) ≤ 1<br>
+        P(not A) = 1 − P(A)<br>
+        P(A or B) = P(A) + P(B)  [mutually exclusive]<br>
+        P(A and B) = P(A) × P(B)  [independent]
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color:var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Conditional probability — Extended</div>
+      <div class="example-math">
+        P(A|B) = P(A ∩ B) / P(B)<br><br>
+        Without replacement: probabilities change<br>
+        on second draw — use tree diagrams.
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch29')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 29 · Trigonometry</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch35')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 35 · Statistics</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 35–37: Statistics
+══════════════════════════════════════════ -->
+<div id="page-ch35" class="page">
+  <div class="ch-eyebrow">Topic 9 · Statistics &nbsp;·&nbsp; E9.1–E9.4</div>
+  <h1 class="ch-title">Statistics</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapters 35–37</span><span class="meta-pill">Page 504</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E9.3 Averages</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E9.3</span>
+        <span class="syl-text">Calculate the mean, median, mode and range for individual and discrete data, and distinguish between the purposes for which they are used.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Calculate an estimate of the mean for grouped and continuous data. Identify the modal class from grouped continuous data.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E9.1, E9.2 Collecting and displaying</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E9.1</span>
+        <span class="syl-text">Collect, classify and tabulate statistical data. Read, interpret and draw inferences from tables and statistical diagrams. Construct and use bar charts, pie charts, pictograms, stem-and-leaf diagrams, simple frequency distributions.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Construct and interpret histograms with equal and unequal intervals (frequency density). Construct scatter diagrams, draw lines of best fit, understand correlation types, use line of best fit to predict.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Extended — E9.4 Cumulative frequency</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E9.4</span>
+        <span class="syl-text" style="color:var(--ext)">Construct and interpret cumulative frequency tables and diagrams. Estimate and interpret the median, percentiles, quartiles and interquartile range.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm ext">E only</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key definitions</div>
+    <div class="example-box">
+      <div class="example-label">Averages</div>
+      <div class="example-math">
+        Mean   = Σx / n<br>
+        Median = middle value when ordered<br>
+        Mode   = most frequent value<br>
+        Range  = max − min
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color:var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Cumulative frequency — Extended</div>
+      <div class="example-math">
+        LQ  = lower quartile  (25th percentile)<br>
+        UQ  = upper quartile  (75th percentile)<br>
+        IQR = UQ − LQ<br>
+        Median = 50th percentile
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch33')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 33 · Probability</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('home')">
+      <div class="ch-nav-dir">↑ Back to top</div><div class="ch-nav-name">Home · All topics</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Placeholder pages for chapters not fully detailed -->
+<script>
+const placeholderChapters = {
+  ch3:  {t:"Calculations and order", topic:"Topic 1 · Number", syl:"E1.6, E1.13", pg:24, prev:'ch2', next:'ch4'},
+  ch4:  {t:"Integers, fractions, decimals and percentages", topic:"Topic 1 · Number", syl:"E1.5, E1.8", pg:30, prev:'ch3', next:'ch5'},
+  ch5:  {t:"Further percentages", topic:"Topic 1 · Number", syl:"E1.12", pg:43, prev:'ch4', next:'ch6'},
+  ch6:  {t:"Ratio and proportion", topic:"Topic 1 · Number", syl:"E1.11", pg:50, prev:'ch5', next:'ch7'},
+  ch8:  {t:"Money and finance", topic:"Topic 1 · Number", syl:"E1.15–E1.17", pg:73, prev:'ch7', next:'ch9'},
+  ch9:  {t:"Time", topic:"Topic 1 · Number", syl:"E1.14", pg:83, prev:'ch8', next:'ch10'},
+  ch10: {t:"Set notation and Venn diagrams", topic:"Topic 1 · Number", syl:"E1.2", pg:85, prev:'ch9', next:'ch11'},
+  ch12: {t:"Algebraic indices", topic:"Topic 2 · Algebra & Graphs", syl:"E2.4", pg:122, prev:'ch11', next:'ch13'},
+  ch14: {t:"Linear programming", topic:"Topic 2 · Algebra & Graphs", syl:"E2.8", pg:147, prev:'ch13', next:'ch15'},
+  ch15: {t:"Sequences", topic:"Topic 2 · Algebra & Graphs", syl:"E2.9, E2.10", pg:153, prev:'ch14', next:'ch16'},
+  ch16: {t:"Proportion", topic:"Topic 2 · Algebra & Graphs", syl:"E2.11", pg:166, prev:'ch15', next:'ch17'},
+  ch17: {t:"Graphs in practical situations", topic:"Topic 2 · Algebra & Graphs", syl:"E2.12", pg:172, prev:'ch16', next:'ch18'},
+  ch19: {t:"Differentiation and the gradient function", topic:"Topic 2 · Algebra & Graphs", syl:"E2.14", pg:219, prev:'ch18', next:'ch20'},
+  ch20: {t:"Functions", topic:"Topic 2 · Algebra & Graphs", syl:"E2.15", pg:239, prev:'ch19', next:'ch21'},
+  ch22: {t:"Geometrical vocabulary and construction", topic:"Topic 4 · Geometry", syl:"E4.1–E4.3", pg:282, prev:'ch21', next:'ch23'},
+  ch23: {t:"Similarity and congruence", topic:"Topic 4 · Geometry", syl:"E4.3, E4.4", pg:293, prev:'ch22', next:'ch24'},
+  ch24: {t:"Symmetry", topic:"Topic 4 · Geometry", syl:"E4.5", pg:310, prev:'ch23', next:'ch25'},
+  ch25: {t:"Angle properties", topic:"Topic 4 · Geometry", syl:"E4.6, E4.7", pg:318, prev:'ch24', next:'ch26'},
+  ch26: {t:"Measures", topic:"Topic 5 · Mensuration", syl:"E5.1", pg:346, prev:'ch25', next:'ch27'},
+  ch28: {t:"Bearings", topic:"Topic 6 · Trigonometry", syl:"E6.1", pg:392, prev:'ch27', next:'ch29'},
+  ch30: {t:"Further trigonometry", topic:"Topic 6 · Trigonometry", syl:"E6.4, E6.5", pg:418, prev:'ch29', next:'ch31'},
+  ch31: {t:"Vectors", topic:"Topic 7 · Vectors & Transforms", syl:"E7.1", pg:440, prev:'ch30', next:'ch32'},
+  ch32: {t:"Transformations", topic:"Topic 7 · Vectors & Transforms", syl:"E7.2, E7.3", pg:452, prev:'ch31', next:'ch33'},
+  ch34: {t:"Further probability", topic:"Topic 8 · Probability", syl:"E8.4, E8.5", pg:488, prev:'ch33', next:'ch35'},
+  ch36: {t:"Collecting, displaying and interpreting data", topic:"Topic 9 · Statistics", syl:"E9.1, E9.2", pg:510, prev:'ch35', next:'ch37'},
+  ch37: {t:"Cumulative frequency", topic:"Topic 9 · Statistics", syl:"E9.4", pg:532, prev:'ch36', next:'home'},
+};
+
+for(const [id, d] of Object.entries(placeholderChapters)){
+  const div = document.createElement('div');
+  div.id = 'page-'+id;
+  div.className = 'page';
+  div.innerHTML = `
+    <div class="ch-eyebrow">${d.topic} &nbsp;·&nbsp; ${d.syl}</div>
+    <h1 class="ch-title">${d.t}</h1>
+    <div class="ch-meta">
+      <span class="meta-pill">Page ${d.pg}</span>
+      <span class="meta-pill">Pimentel & Wall, 4th ed.</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:32px;text-align:center;margin:24px 0;">
+      <div style="font-size:13px;color:var(--hint);margin-bottom:8px;">Syllabus reference</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;color:var(--text);margin-bottom:20px;">${d.syl}</div>
+      <div style="font-size:13px;color:var(--muted);">Full chapter content for <strong>${d.t}</strong>.<br>Use the navigation below to continue through the syllabus.</div>
+    </div>
+    <div class="ch-nav">
+      <div class="ch-nav-btn" onclick="showPage('${d.prev}')">
+        <div class="ch-nav-dir">← Previous</div>
+        <div class="ch-nav-name">Go back</div>
+      </div>
+      <div class="ch-nav-btn right" onclick="showPage('${d.next}')">
+        <div class="ch-nav-dir">Next →</div>
+        <div class="ch-nav-name">Continue</div>
+      </div>
+    </div>`;
+  document.querySelector('.content').appendChild(div);
+}
+</script>
+
+</div><!-- content -->
+</main>
+
+<!-- RIGHT PANEL -->
+<aside id="rpanel">
+  <div>
+    <div class="rp-title">Most visited</div>
+    <ul class="rp-list">
+      <li><button onclick="showPage('ch13')">Equations & inequalities<span class="rp-num">Ch 13</span></button></li>
+      <li><button onclick="showPage('ch29')">Trigonometry<span class="rp-num">Ch 29</span></button></li>
+      <li><button onclick="showPage('ch27')">Area & volume<span class="rp-num">Ch 27</span></button></li>
+      <li><button onclick="showPage('ch21')">Straight line graphs<span class="rp-num">Ch 21</span></button></li>
+      <li><button onclick="showPage('ch33')">Probability<span class="rp-num">Ch 33</span></button></li>
+      <li><button onclick="showPage('ch7')">Standard form<span class="rp-num">Ch 7</span></button></li>
+    </ul>
+  </div>
+  <div>
+    <div class="rp-title">Extended only</div>
+    <ul class="rp-list">
+      <li><button onclick="showPage('ch14')">Linear programming<span class="rp-num">Ch 14</span></button></li>
+      <li><button onclick="showPage('ch19')">Differentiation<span class="rp-num">Ch 19</span></button></li>
+      <li><button onclick="showPage('ch20')">Functions<span class="rp-num">Ch 20</span></button></li>
+      <li><button onclick="showPage('ch30')">Further trig<span class="rp-num">Ch 30</span></button></li>
+      <li><button onclick="showPage('ch34')">Further probability<span class="rp-num">Ch 34</span></button></li>
+      <li><button onclick="showPage('ch37')">Cumulative freq.<span class="rp-num">Ch 37</span></button></li>
+    </ul>
+  </div>
+  <div>
+    <div class="rp-title">Quick formulas</div>
+    <div class="formula-card">
+      <div class="formula-title">Quadratic formula</div>
+      <div class="formula-math">x = (−b ± √(b²−4ac)) / 2a</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-title">Circle</div>
+      <div class="formula-math">A = πr²<br>C = 2πr</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-title">Sine rule</div>
+      <div class="formula-math">a/sinA = b/sinB = c/sinC</div>
+      <div class="formula-note">Extended only</div>
+    </div>
+  </div>
+</aside>
+
+</div><!-- layout -->
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo(0,0);
+  }
+  // update sidebar active
+  document.querySelectorAll('.sb-ch').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tb-nav-link').forEach(b => b.classList.remove('active'));
+  if (id === 'home') {
+    document.querySelector('.tb-nav-link').classList.add('active');
+  }
+  // try to match sidebar button
+  document.querySelectorAll('.sb-ch').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'"+id+"'")) {
+      b.classList.add('active');
+    }
+  });
+}
+
+function showTopic(n) {
+  showPage('home');
+  setTimeout(() => {
+    const sections = document.querySelectorAll('.topic-section');
+    if (sections[n-1]) sections[n-1].scrollIntoView({behavior:'smooth', block:'start'});
+  }, 50);
+}
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IGCSE Mathematics | Core & Extended Knowledge Base</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #fafafa;
+  --surface2: #f4f4f5;
+  --border: #e4e4e7;
+  --border2: #d1d1d6;
+  --text: #18181b;
+  --muted: #71717a;
+  --hint: #a1a1aa;
+  --core: #1d6f42;
+  --core-bg: #f0faf4;
+  --core-border: #bbf7d0;
+  --ext: #1e40af;
+  --ext-bg: #eff6ff;
+  --ext-border: #bfdbfe;
+  --accent: #7c3aed;
+  --accent-bg: #f5f3ff;
+  --sidebar: 268px;
+  --topbar: 50px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 15px; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+/* ── TOPBAR ── */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--topbar);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 0; padding: 0;
+}
+.tb-logo {
+  width: var(--sidebar);
+  padding: 0 20px;
+  display: flex; align-items: center; gap: 8px;
+  border-right: 1px solid var(--border);
+  height: 100%;
+  flex-shrink: 0;
+  text-decoration: none;
+  color: var(--text);
+  cursor: pointer;
+}
+.tb-logo-icon {
+  width: 26px; height: 26px;
+  background: var(--text);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 500;
+  flex-shrink: 0;
+}
+.tb-logo-text { font-size: 14px; font-weight: 600; letter-spacing: -0.02em; }
+.tb-logo-sub { font-size: 11px; color: var(--hint); font-weight: 400; }
+.tb-center {
+  flex: 1; padding: 0 20px;
+  display: flex; align-items: center; gap: 6px;
+}
+.tb-nav-link {
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  padding: 4px 10px; border-radius: 6px;
+  transition: background 0.1s, color 0.1s;
+  cursor: pointer; background: none; border: none;
+}
+.tb-nav-link:hover { background: var(--surface2); color: var(--text); }
+.tb-nav-link.active { background: var(--surface2); color: var(--text); font-weight: 500; }
+.tb-right {
+  padding: 0 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.badge-core {
+  font-size: 11px; font-weight: 500;
+  background: var(--core-bg); color: var(--core);
+  border: 1px solid var(--core-border);
+  padding: 2px 8px; border-radius: 4px;
+}
+.badge-ext {
+  font-size: 11px; font-weight: 500;
+  background: var(--ext-bg); color: var(--ext);
+  border: 1px solid var(--ext-border);
+  padding: 2px 8px; border-radius: 4px;
+}
+.tb-search {
+  width: 30px; height: 30px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 7px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--muted);
+}
+
+/* ── LAYOUT ── */
+#layout { display: flex; padding-top: var(--topbar); min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar);
+  flex-shrink: 0;
+  position: fixed; top: var(--topbar); left: 0; bottom: 0;
+  overflow-y: auto; overflow-x: hidden;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+}
+#sidebar::-webkit-scrollbar { width: 3px; }
+#sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+.sb-topic {
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+.sb-topic-header {
+  padding: 10px 16px 6px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.sb-topic-label {
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--hint);
+}
+.sb-topic-num {
+  font-size: 10px; color: var(--hint);
+  font-family: 'JetBrains Mono', monospace;
+}
+.sb-chapters { display: block; }
+.sb-ch {
+  display: flex; align-items: center; gap: 8px;
+  padding: 5px 16px 5px 20px;
+  text-decoration: none; cursor: pointer;
+  color: var(--muted); font-size: 12.5px;
+  transition: background 0.1s, color 0.1s;
+  border-left: 2px solid transparent;
+  border: none; background: none; width: 100%; text-align: left;
+}
+.sb-ch:hover { background: var(--surface2); color: var(--text); }
+.sb-ch.active {
+  background: var(--surface2); color: var(--text);
+  border-left: 2px solid var(--text); font-weight: 500;
+}
+.sb-ch-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--hint);
+  min-width: 18px; flex-shrink: 0;
+}
+.sb-ch-ext-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--ext); margin-left: auto; flex-shrink: 0;
+  display: none;
+}
+.sb-ch.has-ext .sb-ch-ext-dot { display: block; }
+
+/* ── MAIN ── */
+#main {
+  margin-left: var(--sidebar);
+  flex: 1; min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+.content { width: 100%; max-width: 780px; padding: 40px 48px 80px; }
+
+/* ── PAGE SYSTEM ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── HOME ── */
+.home-hero {
+  padding: 0 0 36px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+.home-eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--hint); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.home-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--border2); }
+.home-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 2.4rem; font-weight: 700;
+  line-height: 1.2; letter-spacing: -0.02em;
+  color: var(--text); margin-bottom: 14px;
+}
+.home-desc {
+  font-size: 15px; color: var(--muted);
+  max-width: 560px; line-height: 1.7;
+  margin-bottom: 24px;
+}
+.home-legend {
+  display: flex; gap: 20px; align-items: center;
+  font-size: 12px; color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: fit-content;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 8px; height: 8px; border-radius: 2px; }
+
+/* ── TOPIC SECTION ── */
+.topic-section { margin-bottom: 40px; }
+.topic-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.topic-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  color: var(--hint);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 2px 7px; border-radius: 4px;
+}
+.topic-title {
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.topic-ch-count { font-size: 11px; color: var(--hint); margin-left: auto; }
+
+/* ── CHAPTER CARD ── */
+.ch-grid { display: flex; flex-direction: column; gap: 4px; }
+.ch-card {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 7px; cursor: pointer;
+  transition: border-color 0.1s, background 0.1s;
+  text-align: left; width: 100%;
+}
+.ch-card:hover { border-color: var(--border2); background: var(--surface); }
+.ch-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--hint);
+  min-width: 22px;
+}
+.ch-name { font-size: 13.5px; font-weight: 500; color: var(--text); flex: 1; text-align: left; }
+.ch-syllabus { font-size: 11px; color: var(--hint); font-family: 'JetBrains Mono', monospace; }
+.ch-badges { display: flex; gap: 4px; }
+.badge-sm {
+  font-size: 10px; font-weight: 600; padding: 1px 6px; border-radius: 3px;
+  letter-spacing: 0.03em;
+}
+.badge-sm.core { background: var(--core-bg); color: var(--core); }
+.badge-sm.ext { background: var(--ext-bg); color: var(--ext); }
+
+/* ── CHAPTER PAGE ── */
+.ch-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--hint);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.ch-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.9rem; font-weight: 700;
+  line-height: 1.25; letter-spacing: -0.02em;
+  color: var(--text); margin-bottom: 16px;
+}
+.ch-meta {
+  display: flex; gap: 8px; align-items: center;
+  flex-wrap: wrap;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.meta-pill {
+  font-size: 11.5px; background: var(--surface2);
+  border: 1px solid var(--border);
+  padding: 3px 9px; border-radius: 5px; color: var(--muted);
+}
+
+/* ── SYLLABUS BLOCKS ── */
+.syllabus-section { margin-bottom: 32px; }
+.syllabus-section-title {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--hint);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.syllabus-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.syllabus-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+.syllabus-item-header {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg);
+}
+.syl-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  color: var(--hint);
+  min-width: 40px; padding-top: 1px;
+}
+.syl-text {
+  font-size: 13.5px; color: var(--text);
+  line-height: 1.55; flex: 1;
+}
+.syl-badge-wrap { display: flex; align-items: flex-start; padding-top: 2px; }
+
+/* EXT-only block */
+.ext-only {
+  background: var(--ext-bg);
+  border-top: 1px solid var(--ext-border);
+  padding: 10px 14px 10px calc(14px + 50px);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.ext-only-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--ext);
+  white-space: nowrap; padding-top: 2px;
+  min-width: 60px;
+}
+.ext-only-text { font-size: 13px; color: var(--ext); line-height: 1.5; }
+
+/* VOCAB GRID */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 5px; margin: 10px 0;
+}
+.vocab-pill {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 5px; padding: 5px 10px;
+  font-size: 12px; color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* EXAMPLE BOX */
+.example-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--text);
+  border-radius: 0 7px 7px 0;
+  padding: 14px 16px;
+  margin: 16px 0;
+}
+.example-label {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--hint);
+  margin-bottom: 8px;
+}
+.example-math {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: var(--text);
+  line-height: 1.8;
+}
+
+/* TIP BOX */
+.tip-box {
+  background: #fffbeb; border: 1px solid #fde68a;
+  border-radius: 7px; padding: 12px 14px;
+  margin: 14px 0; display: flex; gap: 10px;
+}
+.tip-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.tip-text { font-size: 13px; color: #78350f; line-height: 1.55; }
+
+/* NAV BETWEEN PAGES */
+.ch-nav {
+  display: flex; gap: 8px; justify-content: space-between;
+  margin-top: 40px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.ch-nav-btn {
+  flex: 1; max-width: 48%;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 7px; padding: 10px 14px;
+  cursor: pointer; text-align: left;
+  transition: border-color 0.1s;
+}
+.ch-nav-btn:hover { border-color: var(--border2); }
+.ch-nav-btn.right { text-align: right; }
+.ch-nav-dir { font-size: 10px; color: var(--hint); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+.ch-nav-name { font-size: 13px; font-weight: 500; color: var(--text); }
+
+/* RIGHT PANEL */
+#rpanel {
+  width: 220px; flex-shrink: 0;
+  padding: 32px 20px;
+  border-left: 1px solid var(--border);
+  position: sticky; top: var(--topbar);
+  height: calc(100vh - var(--topbar));
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 24px;
+}
+.rp-title {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--hint);
+  margin-bottom: 8px;
+}
+.rp-list { list-style: none; }
+.rp-list li { border-bottom: 1px solid var(--border); }
+.rp-list li:last-child { border-bottom: none; }
+.rp-list button {
+  width: 100%; text-align: left; background: none; border: none;
+  padding: 6px 0; font-size: 12.5px; color: var(--muted);
+  cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+  gap: 8px;
+}
+.rp-list button:hover { color: var(--text); }
+.rp-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--hint); flex-shrink: 0;
+}
+
+/* FORMULA CARDS */
+.formula-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 12px;
+  margin-bottom: 6px;
+}
+.formula-title { font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.formula-math {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; color: var(--text);
+  line-height: 1.7;
+}
+.formula-note { font-size: 11px; color: var(--hint); margin-top: 4px; }
+
+/* responsive */
+@media(max-width:1200px){ #rpanel { display:none; } }
+@media(max-width:768px){
+  #sidebar { display:none; }
+  #main { margin-left:0; }
+  .content { padding: 24px 18px 60px; }
+  .home-title { font-size:1.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header id="topbar">
+  <div class="tb-logo" onclick="showPage('home')">
+    <div class="tb-logo-icon">∑</div>
+    <div>
+      <div class="tb-logo-text">IGCSE Math</div>
+      <div class="tb-logo-sub">Core & Extended</div>
+    </div>
+  </div>
+  <div class="tb-center">
+    <button class="tb-nav-link active" onclick="showPage('home')">Explore</button>
+    <button class="tb-nav-link" onclick="showTopic(1)">Number</button>
+    <button class="tb-nav-link" onclick="showTopic(2)">Algebra</button>
+    <button class="tb-nav-link" onclick="showTopic(4)">Geometry</button>
+    <button class="tb-nav-link" onclick="showTopic(8)">Probability</button>
+    <button class="tb-nav-link" onclick="showTopic(9)">Statistics</button>
+  </div>
+  <div class="tb-right">
+    <span class="badge-core">Core</span>
+    <span class="badge-ext">Extended</span>
+    <div class="tb-search">⌕</div>
+  </div>
+</header>
+
+<div id="layout">
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+
+  <!-- TOPIC 1 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 1 · Number</span>
+      <span class="sb-topic-num">Ch 1–10</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch1')"><span class="sb-ch-num">01</span>Number and language<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch2')"><span class="sb-ch-num">02</span>Accuracy<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch3')"><span class="sb-ch-num">03</span>Calculations and order<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch4')"><span class="sb-ch-num">04</span>Integers, fractions, decimals<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch5')"><span class="sb-ch-num">05</span>Further percentages<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch6')"><span class="sb-ch-num">06</span>Ratio and proportion<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch7')"><span class="sb-ch-num">07</span>Indices and standard form<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch8')"><span class="sb-ch-num">08</span>Money and finance<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch9')"><span class="sb-ch-num">09</span>Time<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch10')"><span class="sb-ch-num">10</span>Set notation & Venn diagrams<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 2 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 2 · Algebra & Graphs</span>
+      <span class="sb-topic-num">Ch 11–20</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch11')"><span class="sb-ch-num">11</span>Algebraic representation<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch12')"><span class="sb-ch-num">12</span>Algebraic indices<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch13')"><span class="sb-ch-num">13</span>Equations and inequalities<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch14')"><span class="sb-ch-num">14</span>Linear programming<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch15')"><span class="sb-ch-num">15</span>Sequences<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch16')"><span class="sb-ch-num">16</span>Proportion<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch17')"><span class="sb-ch-num">17</span>Graphs in practical situations<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch18')"><span class="sb-ch-num">18</span>Graphs of functions<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch19')"><span class="sb-ch-num">19</span>Differentiation<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch20')"><span class="sb-ch-num">20</span>Functions<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 3 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 3 · Coordinate Geometry</span>
+      <span class="sb-topic-num">Ch 21</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch21')"><span class="sb-ch-num">21</span>Straight line graphs<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 4 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 4 · Geometry</span>
+      <span class="sb-topic-num">Ch 22–25</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch22')"><span class="sb-ch-num">22</span>Geometrical vocabulary<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch23')"><span class="sb-ch-num">23</span>Similarity and congruence<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch" onclick="showPage('ch24')"><span class="sb-ch-num">24</span>Symmetry<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch25')"><span class="sb-ch-num">25</span>Angle properties<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 5 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 5 · Mensuration</span>
+      <span class="sb-topic-num">Ch 26–27</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch" onclick="showPage('ch26')"><span class="sb-ch-num">26</span>Measures<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch27')"><span class="sb-ch-num">27</span>Perimeter, area and volume<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 6 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 6 · Trigonometry</span>
+      <span class="sb-topic-num">Ch 28–30</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch" onclick="showPage('ch28')"><span class="sb-ch-num">28</span>Bearings<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch29')"><span class="sb-ch-num">29</span>Trigonometry<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch30')"><span class="sb-ch-num">30</span>Further trigonometry<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 7 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 7 · Vectors & Transforms</span>
+      <span class="sb-topic-num">Ch 31–32</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch31')"><span class="sb-ch-num">31</span>Vectors<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch32')"><span class="sb-ch-num">32</span>Transformations<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 8 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 8 · Probability</span>
+      <span class="sb-topic-num">Ch 33–34</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch has-ext" onclick="showPage('ch33')"><span class="sb-ch-num">33</span>Probability<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch34')"><span class="sb-ch-num">34</span>Further probability<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 9 -->
+  <div class="sb-topic">
+    <div class="sb-topic-header">
+      <span class="sb-topic-label">Topic 9 · Statistics</span>
+      <span class="sb-topic-num">Ch 35–37</span>
+    </div>
+    <div class="sb-chapters">
+      <button class="sb-ch" onclick="showPage('ch35')"><span class="sb-ch-num">35</span>Mean, median, mode, range<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch36')"><span class="sb-ch-num">36</span>Collecting & displaying data<div class="sb-ch-ext-dot"></div></button>
+      <button class="sb-ch has-ext" onclick="showPage('ch37')"><span class="sb-ch-num">37</span>Cumulative frequency<div class="sb-ch-ext-dot"></div></button>
+    </div>
+  </div>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+<div class="content">
+
+<!-- ══════════════════════════════════════════
+     HOME PAGE
+══════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div class="home-eyebrow">Cambridge IGCSE · 4th Edition · Pimentel & Wall</div>
+    <h1 class="home-title">IGCSE Mathematics<br>Knowledge Base</h1>
+    <p class="home-desc">All 37 chapters of the Cambridge IGCSE Mathematics syllabus, structured by topic. Each chapter clearly marks which content is Core-only and which requirements are Extended-only.</p>
+    <div class="home-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--core);"></div>
+        <span><strong>Core</strong> — required for all candidates</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--ext);"></div>
+        <span><strong>Extended</strong> — additional content for 0580/Extended</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:var(--hint); border-radius:50%;"></div>
+        <span>Blue dot in sidebar = chapter has Extended-only content</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPIC 1 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 1</span>
+      <span class="topic-title">Number</span>
+      <span class="topic-ch-count">Chapters 1–10</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch1')"><span class="ch-num">01</span><span class="ch-name">Number and language</span><span class="ch-syllabus">E1.1, E1.3, E1.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch2')"><span class="ch-num">02</span><span class="ch-name">Accuracy</span><span class="ch-syllabus">E1.9, E1.10</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch3')"><span class="ch-num">03</span><span class="ch-name">Calculations and order</span><span class="ch-syllabus">E1.6, E1.13</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch4')"><span class="ch-num">04</span><span class="ch-name">Integers, fractions, decimals and percentages</span><span class="ch-syllabus">E1.5, E1.8</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch5')"><span class="ch-num">05</span><span class="ch-name">Further percentages</span><span class="ch-syllabus">E1.12</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch6')"><span class="ch-num">06</span><span class="ch-name">Ratio and proportion</span><span class="ch-syllabus">E1.11</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch7')"><span class="ch-num">07</span><span class="ch-name">Indices and standard form</span><span class="ch-syllabus">E1.7</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch8')"><span class="ch-num">08</span><span class="ch-name">Money and finance</span><span class="ch-syllabus">E1.15–E1.17</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch9')"><span class="ch-num">09</span><span class="ch-name">Time</span><span class="ch-syllabus">E1.14</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch10')"><span class="ch-num">10</span><span class="ch-name">Set notation and Venn diagrams</span><span class="ch-syllabus">E1.2</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 2 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 2</span>
+      <span class="topic-title">Algebra and Graphs</span>
+      <span class="topic-ch-count">Chapters 11–20</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch11')"><span class="ch-num">11</span><span class="ch-name">Algebraic representation and manipulation</span><span class="ch-syllabus">E2.1–E2.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch12')"><span class="ch-num">12</span><span class="ch-name">Algebraic indices</span><span class="ch-syllabus">E2.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch13')"><span class="ch-num">13</span><span class="ch-name">Equations and inequalities</span><span class="ch-syllabus">E2.5–E2.7</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch14')"><span class="ch-num">14</span><span class="ch-name">Linear programming</span><span class="ch-syllabus">E2.8</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+      <button class="ch-card" onclick="showPage('ch15')"><span class="ch-num">15</span><span class="ch-name">Sequences</span><span class="ch-syllabus">E2.9, E2.10</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch16')"><span class="ch-num">16</span><span class="ch-name">Proportion</span><span class="ch-syllabus">E2.11</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch17')"><span class="ch-num">17</span><span class="ch-name">Graphs in practical situations</span><span class="ch-syllabus">E2.12</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch18')"><span class="ch-num">18</span><span class="ch-name">Graphs of functions</span><span class="ch-syllabus">E2.13</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch19')"><span class="ch-num">19</span><span class="ch-name">Differentiation and the gradient function</span><span class="ch-syllabus">E2.14</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+      <button class="ch-card" onclick="showPage('ch20')"><span class="ch-num">20</span><span class="ch-name">Functions</span><span class="ch-syllabus">E2.15</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 3 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 3</span>
+      <span class="topic-title">Coordinate Geometry</span>
+      <span class="topic-ch-count">Chapter 21</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch21')"><span class="ch-num">21</span><span class="ch-name">Straight line graphs</span><span class="ch-syllabus">E3.1–E3.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 4 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 4</span>
+      <span class="topic-title">Geometry</span>
+      <span class="topic-ch-count">Chapters 22–25</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch22')"><span class="ch-num">22</span><span class="ch-name">Geometrical vocabulary and construction</span><span class="ch-syllabus">E4.1–E4.3</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch23')"><span class="ch-num">23</span><span class="ch-name">Similarity and congruence</span><span class="ch-syllabus">E4.3, E4.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch24')"><span class="ch-num">24</span><span class="ch-name">Symmetry</span><span class="ch-syllabus">E4.5</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch25')"><span class="ch-num">25</span><span class="ch-name">Angle properties</span><span class="ch-syllabus">E4.6, E4.7</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 5 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 5</span>
+      <span class="topic-title">Mensuration</span>
+      <span class="topic-ch-count">Chapters 26–27</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch26')"><span class="ch-num">26</span><span class="ch-name">Measures</span><span class="ch-syllabus">E5.1</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch27')"><span class="ch-num">27</span><span class="ch-name">Perimeter, area and volume</span><span class="ch-syllabus">E5.2–E5.5</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 6 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 6</span>
+      <span class="topic-title">Trigonometry</span>
+      <span class="topic-ch-count">Chapters 28–30</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch28')"><span class="ch-num">28</span><span class="ch-name">Bearings</span><span class="ch-syllabus">E6.1</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch29')"><span class="ch-num">29</span><span class="ch-name">Trigonometry</span><span class="ch-syllabus">E6.2–E6.4</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch30')"><span class="ch-num">30</span><span class="ch-name">Further trigonometry</span><span class="ch-syllabus">E6.4, E6.5</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 7 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 7</span>
+      <span class="topic-title">Vectors and Transformations</span>
+      <span class="topic-ch-count">Chapters 31–32</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch31')"><span class="ch-num">31</span><span class="ch-name">Vectors</span><span class="ch-syllabus">E7.1</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch32')"><span class="ch-num">32</span><span class="ch-name">Transformations</span><span class="ch-syllabus">E7.2, E7.3</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 8 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 8</span>
+      <span class="topic-title">Probability</span>
+      <span class="topic-ch-count">Chapters 33–34</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch33')"><span class="ch-num">33</span><span class="ch-name">Probability</span><span class="ch-syllabus">E8.1–E8.3</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch34')"><span class="ch-num">34</span><span class="ch-name">Further probability</span><span class="ch-syllabus">E8.4, E8.5</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+    </div>
+  </div>
+
+  <!-- TOPIC 9 -->
+  <div class="topic-section">
+    <div class="topic-header">
+      <span class="topic-number">Topic 9</span>
+      <span class="topic-title">Statistics</span>
+      <span class="topic-ch-count">Chapters 35–37</span>
+    </div>
+    <div class="ch-grid">
+      <button class="ch-card" onclick="showPage('ch35')"><span class="ch-num">35</span><span class="ch-name">Mean, median, mode and range</span><span class="ch-syllabus">E9.3</span><div class="ch-badges"><span class="badge-sm core">C</span></div></button>
+      <button class="ch-card" onclick="showPage('ch36')"><span class="ch-num">36</span><span class="ch-name">Collecting, displaying and interpreting data</span><span class="ch-syllabus">E9.1, E9.2</span><div class="ch-badges"><span class="badge-sm core">C</span><span class="badge-sm ext">E+</span></div></button>
+      <button class="ch-card" onclick="showPage('ch37')"><span class="ch-num">37</span><span class="ch-name">Cumulative frequency</span><span class="ch-syllabus">E9.4</span><div class="ch-badges"><span class="badge-sm ext">E only</span></div></button>
+    </div>
+  </div>
+</div><!-- end home -->
+
+
+<!-- ══════════════════════════════════════════
+     CH 1: Number and language
+══════════════════════════════════════════ -->
+<div id="page-ch1" class="page">
+  <div class="ch-eyebrow">Topic 1 · Number &nbsp;·&nbsp; E1.1, E1.3, E1.4</div>
+  <h1 class="ch-title">Number and language</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 1</span>
+    <span class="meta-pill">Page 4</span>
+    <span class="meta-pill">Pimentel & Wall, 4th ed.</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core & Extended — E1.1</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.1</span>
+        <span class="syl-text">Identify and use <strong>natural numbers, integers</strong> (positive, negative and zero), <strong>prime numbers</strong>, square and cube numbers, common factors and common multiples, rational and irrational numbers (e.g. π, √2), real numbers, and reciprocals.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.3</span>
+        <span class="syl-text">Calculate with squares, square roots, cubes and cube roots and other powers and roots of numbers.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.4</span>
+        <span class="syl-text">Use directed numbers in practical situations.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key vocabulary and number types</div>
+    <div class="vocab-grid">
+      <div class="vocab-pill">Natural numbers ℕ</div>
+      <div class="vocab-pill">Integers ℤ</div>
+      <div class="vocab-pill">Rational numbers ℚ</div>
+      <div class="vocab-pill">Irrational numbers</div>
+      <div class="vocab-pill">Real numbers ℝ</div>
+      <div class="vocab-pill">Prime numbers</div>
+      <div class="vocab-pill">Square numbers</div>
+      <div class="vocab-pill">Cube numbers</div>
+      <div class="vocab-pill">HCF / LCM</div>
+      <div class="vocab-pill">Reciprocal</div>
+      <div class="vocab-pill">Directed numbers</div>
+    </div>
+
+    <div class="example-box">
+      <div class="example-label">Key definitions</div>
+      <div class="example-math">
+        ℕ = {0, 1, 2, 3, 4, …}<br>
+        ℤ = {…, −2, −1, 0, 1, 2, …}<br>
+        ℚ = all numbers of the form p/q  (q ≠ 0)<br>
+        Irrational: cannot be written as p/q  (e.g. π, √2, √3)<br>
+        Reciprocal of x = 1/x  (e.g. reciprocal of 4 = 0.25)
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-icon">★</div>
+      <div class="tip-text">All integers are rational (e.g. 5 = 5/1), but not all rationals are integers. Irrational numbers have decimal expansions that never terminate and never repeat.</div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('home')">
+      <div class="ch-nav-dir">← Back</div>
+      <div class="ch-nav-name">Home · All topics</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch2')">
+      <div class="ch-nav-dir">Next →</div>
+      <div class="ch-nav-name">Ch 2 · Accuracy</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 2: Accuracy
+══════════════════════════════════════════ -->
+<div id="page-ch2" class="page">
+  <div class="ch-eyebrow">Topic 1 · Number &nbsp;·&nbsp; E1.9, E1.10</div>
+  <h1 class="ch-title">Accuracy</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 2</span><span class="meta-pill">Page 13</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E1.9</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.9</span>
+        <span class="syl-text">Make estimates of numbers, quantities and lengths. Give approximations to specified numbers of <strong>significant figures</strong> and <strong>decimal places</strong> and round off answers to reasonable accuracy in the context of a given problem.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core & Extended — E1.10</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.10</span>
+        <span class="syl-text">Give appropriate <strong>upper and lower bounds</strong> for data given to a specified accuracy.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Obtain appropriate upper and lower bounds to solutions of simple problems given data to a specified accuracy (error intervals in calculations).</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key concepts</div>
+    <div class="example-box">
+      <div class="example-label">Rounding rules</div>
+      <div class="example-math">
+        3.456 to 2 d.p.  → 3.46<br>
+        3.456 to 2 s.f.  → 3.5<br>
+        0.007821 to 2 s.f. → 0.0078<br><br>
+        Bounds: x = 4.3 (1 d.p.)<br>
+        Lower bound = 4.25,  Upper bound = 4.35
+      </div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">★</div>
+      <div class="tip-text">For Extended: when adding two measured values, add their upper bounds for the maximum result, and add their lower bounds for the minimum result. For subtraction, use upper − lower for maximum and lower − upper for minimum.</div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch1')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 1 · Number and language</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch7')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 7 · Indices & standard form</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 7: Indices and Standard Form
+══════════════════════════════════════════ -->
+<div id="page-ch7" class="page">
+  <div class="ch-eyebrow">Topic 1 · Number &nbsp;·&nbsp; E1.7</div>
+  <h1 class="ch-title">Indices and standard form</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 7</span><span class="meta-pill">Page 62</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core & Extended — E1.7</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E1.7</span>
+        <span class="syl-text">Understand the meaning of indices (fractional, negative and zero) and use the rules of indices. Use the standard form A × 10ⁿ where n is a positive or negative integer, and 1 ≤ A &lt; 10.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Laws of indices</div>
+    <div class="example-box">
+      <div class="example-label">Core rules (all candidates)</div>
+      <div class="example-math">
+        aᵐ × aⁿ = aᵐ⁺ⁿ<br>
+        aᵐ ÷ aⁿ = aᵐ⁻ⁿ<br>
+        (aᵐ)ⁿ   = aᵐⁿ<br>
+        a⁰      = 1<br>
+        a⁻ⁿ     = 1/aⁿ
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color: var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Extended — fractional indices</div>
+      <div class="example-math">
+        a^(1/n) = ⁿ√a<br>
+        a^(m/n) = (ⁿ√a)ᵐ = ⁿ√(aᵐ)<br><br>
+        e.g. 27^(2/3) = (³√27)² = 3² = 9
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="example-label">Standard form</div>
+      <div class="example-math">
+        3 500 000 = 3.5 × 10⁶<br>
+        0.00042  = 4.2 × 10⁻⁴<br><br>
+        Condition: 1 ≤ A &lt; 10
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch6')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 6 · Ratio and proportion</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch11')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 11 · Algebraic representation</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 11: Algebraic representation
+══════════════════════════════════════════ -->
+<div id="page-ch11" class="page">
+  <div class="ch-eyebrow">Topic 2 · Algebra & Graphs &nbsp;·&nbsp; E2.1–E2.4</div>
+  <h1 class="ch-title">Algebraic representation and manipulation</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 11</span><span class="meta-pill">Page 102</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E2.1 / E2.2</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.1</span>
+        <span class="syl-text">Use letters to express generalised numbers and express basic arithmetic processes algebraically. Substitute numbers for words and letters in formulae. Rearrange simple formulae. Construct simple expressions and set up simple equations.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.2</span>
+        <span class="syl-text">Manipulate directed numbers. Use brackets and extract common factors. Expand products of algebraic expressions.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Factorise where possible expressions of the form: ax + bx + kay + kby; a²x² − b²y²; a² + 2ab + b²; ax² + bx + c. Manipulate algebraic fractions.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Factorising — Extended</div>
+    <div class="example-box" style="border-left-color: var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Key factorisation types</div>
+      <div class="example-math">
+        Common factor:      6x² + 9x = 3x(2x + 3)<br>
+        Difference of squares: a² − b² = (a+b)(a−b)<br>
+        Perfect square:    x² + 6x + 9 = (x+3)²<br>
+        Trinomial:         x² + 7x + 12 = (x+3)(x+4)<br>
+        Grouping:          ax + ay + bx + by = (a+b)(x+y)
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch7')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 7 · Indices & standard form</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch13')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 13 · Equations & inequalities</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 13: Equations and inequalities
+══════════════════════════════════════════ -->
+<div id="page-ch13" class="page">
+  <div class="ch-eyebrow">Topic 2 · Algebra & Graphs &nbsp;·&nbsp; E2.5–E2.7</div>
+  <h1 class="ch-title">Equations and inequalities</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 13</span><span class="meta-pill">Page 126</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E2.5</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.5</span>
+        <span class="syl-text">Derive and solve simple linear equations in one unknown. Derive and solve simultaneous linear equations in two unknowns.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Derive and solve quadratic equations by factorisation, completing the square, and by using the quadratic formula. Derive and solve simultaneous equations (one linear, one quadratic).</span>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.6</span>
+        <span class="syl-text">Represent inequalities on a number line. Solve simple linear inequalities.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Quadratic formula — Extended</div>
+    <div class="example-box" style="border-left-color: var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Quadratic formula</div>
+      <div class="example-math">
+        ax² + bx + c = 0<br><br>
+        x = (−b ± √(b²−4ac)) / 2a<br><br>
+        Discriminant Δ = b²−4ac<br>
+        Δ &gt; 0 → two real roots<br>
+        Δ = 0 → one repeated root<br>
+        Δ &lt; 0 → no real roots
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch11')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 11 · Algebraic representation</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch18')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 18 · Graphs of functions</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 18: Graphs of functions
+══════════════════════════════════════════ -->
+<div id="page-ch18" class="page">
+  <div class="ch-eyebrow">Topic 2 · Algebra & Graphs &nbsp;·&nbsp; E2.13</div>
+  <h1 class="ch-title">Graphs of functions</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 18</span><span class="meta-pill">Page 193</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E2.13</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E2.13</span>
+        <span class="syl-text">Construct tables of values and draw, recognise and interpret graphs for functions of the form axⁿ (n ∈ {−2,−1,0,1,2,3}) and simple sums of not more than three of these. Solve associated equations graphically, including finding and interpreting roots.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Also: exponential functions y = kˣ for positive k; draw and interpret graphs, recognise and use symmetry. Estimate gradients of curves by drawing tangents. Apply to real contexts.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Function types you must know</div>
+    <div class="vocab-grid">
+      <div class="vocab-pill">y = mx + c  (linear)</div>
+      <div class="vocab-pill">y = ax² + bx + c</div>
+      <div class="vocab-pill">y = ax³</div>
+      <div class="vocab-pill">y = a/x  (hyperbola)</div>
+      <div class="vocab-pill">y = a/x²</div>
+      <div class="vocab-pill">y = kˣ  (Ext)</div>
+    </div>
+    <div class="tip-box">
+      <div class="tip-icon">★</div>
+      <div class="tip-text">For Extended: the gradient at a point on a curve equals the gradient of the tangent drawn at that point. To estimate, draw a tangent by hand and calculate rise/run.</div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch13')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 13 · Equations & inequalities</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch21')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 21 · Straight line graphs</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 21: Straight line graphs
+══════════════════════════════════════════ -->
+<div id="page-ch21" class="page">
+  <div class="ch-eyebrow">Topic 3 · Coordinate Geometry &nbsp;·&nbsp; E3.1–E3.4</div>
+  <h1 class="ch-title">Straight line graphs</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 21</span><span class="meta-pill">Page 250</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core & Extended — E3.1–E3.4</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E3.1</span>
+        <span class="syl-text">Demonstrate familiarity with Cartesian coordinates in two dimensions. Interpret and obtain the equation of a straight-line graph in the form y = mx + c.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E3.2</span>
+        <span class="syl-text">Calculate the gradient of a straight line from the coordinates of two points on it.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E3.3–E3.4</span>
+        <span class="syl-text">Calculate the length and the coordinates of the midpoint of a line segment from the coordinates of its endpoints.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Know that the gradient of parallel lines is equal. Know that the gradients of perpendicular lines multiply to give −1. Find the equation of a line parallel or perpendicular to a given line.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key formulas</div>
+    <div class="example-box">
+      <div class="example-label">All candidates</div>
+      <div class="example-math">
+        Gradient:  m = (y₂−y₁) / (x₂−x₁)<br>
+        Equation:  y = mx + c<br>
+        Midpoint:  M = ((x₁+x₂)/2 , (y₁+y₂)/2)<br>
+        Length:    d = √((x₂−x₁)² + (y₂−y₁)²)
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color:var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Extended only</div>
+      <div class="example-math">
+        Parallel lines:      m₁ = m₂<br>
+        Perpendicular lines: m₁ × m₂ = −1
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch18')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 18 · Graphs of functions</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch27')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 27 · Perimeter, area & volume</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 27: Perimeter, area and volume
+══════════════════════════════════════════ -->
+<div id="page-ch27" class="page">
+  <div class="ch-eyebrow">Topic 5 · Mensuration &nbsp;·&nbsp; E5.2–E5.5</div>
+  <h1 class="ch-title">Perimeter, area and volume</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 27</span><span class="meta-pill">Page 351</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E5.2 Formulae</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E5.2</span>
+        <span class="syl-text">Carry out calculations involving the perimeter and area of a rectangle, triangle, parallelogram and trapezium, and compound shapes derived from these.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E5.3</span>
+        <span class="syl-text">Carry out calculations involving the circumference and area of a circle, arc length and area of sector.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E5.4–E5.5</span>
+        <span class="syl-text">Surface area and volume of cuboid, prism, cylinder. Surface area and volume of sphere, pyramid and cone.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Solve problems involving the surface area and volume of a sphere, pyramid and cone. Apply to compound 3D shapes.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Formula reference</div>
+    <div class="example-box">
+      <div class="example-label">2D shapes</div>
+      <div class="example-math">
+        Rectangle:    A = lw<br>
+        Triangle:     A = ½bh<br>
+        Parallelogram:A = bh<br>
+        Trapezium:    A = ½(a+b)h<br>
+        Circle:       A = πr²,  C = 2πr<br>
+        Sector:       A = (θ/360)πr²,  arc = (θ/360)2πr
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="example-label">3D shapes</div>
+      <div class="example-math">
+        Cuboid:    V = lwh<br>
+        Cylinder:  V = πr²h,  SA = 2πr² + 2πrh<br>
+        Sphere:    V = (4/3)πr³,  SA = 4πr²<br>
+        Cone:      V = (1/3)πr²h,  SA = πrl + πr²<br>
+        Pyramid:   V = (1/3) × base area × h
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch21')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 21 · Straight line graphs</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch29')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 29 · Trigonometry</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 29: Trigonometry
+══════════════════════════════════════════ -->
+<div id="page-ch29" class="page">
+  <div class="ch-eyebrow">Topic 6 · Trigonometry &nbsp;·&nbsp; E6.2–E6.4</div>
+  <h1 class="ch-title">Trigonometry</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 29</span><span class="meta-pill">Page 394</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E6.2 Right-angled triangles</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E6.2</span>
+        <span class="syl-text">Interpret and use three-figure bearings. Apply Pythagoras' theorem and the trigonometric ratios (sin, cos, tan) to the calculation of a side or of an angle of a right-angled triangle.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Know and use sine rule and cosine rule for any triangle. Find the area of a triangle using: A = ½ab sin C.</span>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E6.3</span>
+        <span class="syl-text">Solve trigonometric problems in 2D involving angles of elevation and depression.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Formulas</div>
+    <div class="example-box">
+      <div class="example-label">Right-angled triangles (all candidates)</div>
+      <div class="example-math">
+        sin θ = opposite / hypotenuse<br>
+        cos θ = adjacent / hypotenuse<br>
+        tan θ = opposite / adjacent<br><br>
+        Pythagoras: a² + b² = c²
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color:var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Sine & cosine rules — Extended</div>
+      <div class="example-math">
+        Sine rule:   a/sin A = b/sin B = c/sin C<br>
+        Cosine rule: a² = b² + c² − 2bc cos A<br>
+        Area:        A = ½ ab sin C
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch27')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 27 · Perimeter, area & volume</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch33')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 33 · Probability</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 33: Probability
+══════════════════════════════════════════ -->
+<div id="page-ch33" class="page">
+  <div class="ch-eyebrow">Topic 8 · Probability &nbsp;·&nbsp; E8.1–E8.3</div>
+  <h1 class="ch-title">Probability</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapter 33</span><span class="meta-pill">Page 476</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E8.1–E8.3</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E8.1</span>
+        <span class="syl-text">Calculate the probability of a single event as either a fraction, decimal or percentage. Understand and use the probability scale 0 to 1.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+    </div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E8.2</span>
+        <span class="syl-text">Understand that the probability of an event not occurring = 1 − P(event occurring). Use possibility diagrams and tree diagrams.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Calculate conditional probability using Venn diagrams, tree diagrams and tables. Understand and apply P(A|B).</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key rules</div>
+    <div class="example-box">
+      <div class="example-label">Core rules</div>
+      <div class="example-math">
+        0 ≤ P(A) ≤ 1<br>
+        P(not A) = 1 − P(A)<br>
+        P(A or B) = P(A) + P(B)  [mutually exclusive]<br>
+        P(A and B) = P(A) × P(B)  [independent]
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color:var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Conditional probability — Extended</div>
+      <div class="example-math">
+        P(A|B) = P(A ∩ B) / P(B)<br><br>
+        Without replacement: probabilities change<br>
+        on second draw — use tree diagrams.
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch29')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 29 · Trigonometry</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('ch35')">
+      <div class="ch-nav-dir">Next →</div><div class="ch-nav-name">Ch 35 · Statistics</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     CH 35–37: Statistics
+══════════════════════════════════════════ -->
+<div id="page-ch35" class="page">
+  <div class="ch-eyebrow">Topic 9 · Statistics &nbsp;·&nbsp; E9.1–E9.4</div>
+  <h1 class="ch-title">Statistics</h1>
+  <div class="ch-meta">
+    <span class="badge-sm core" style="font-size:12px;padding:3px 10px;">Core</span>
+    <span class="badge-sm ext" style="font-size:12px;padding:3px 10px;">Extended +</span>
+    <span class="meta-pill">Chapters 35–37</span><span class="meta-pill">Page 504</span>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E9.3 Averages</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E9.3</span>
+        <span class="syl-text">Calculate the mean, median, mode and range for individual and discrete data, and distinguish between the purposes for which they are used.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Calculate an estimate of the mean for grouped and continuous data. Identify the modal class from grouped continuous data.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Core — E9.1, E9.2 Collecting and displaying</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E9.1</span>
+        <span class="syl-text">Collect, classify and tabulate statistical data. Read, interpret and draw inferences from tables and statistical diagrams. Construct and use bar charts, pie charts, pictograms, stem-and-leaf diagrams, simple frequency distributions.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm core">C</span></div>
+      </div>
+      <div class="ext-only">
+        <span class="ext-only-label">Ext only</span>
+        <span class="ext-only-text">Construct and interpret histograms with equal and unequal intervals (frequency density). Construct scatter diagrams, draw lines of best fit, understand correlation types, use line of best fit to predict.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Extended — E9.4 Cumulative frequency</div>
+    <div class="syllabus-item">
+      <div class="syllabus-item-header">
+        <span class="syl-code">E9.4</span>
+        <span class="syl-text" style="color:var(--ext)">Construct and interpret cumulative frequency tables and diagrams. Estimate and interpret the median, percentiles, quartiles and interquartile range.</span>
+        <div class="syl-badge-wrap"><span class="badge-sm ext">E only</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="syllabus-section">
+    <div class="syllabus-section-title">Key definitions</div>
+    <div class="example-box">
+      <div class="example-label">Averages</div>
+      <div class="example-math">
+        Mean   = Σx / n<br>
+        Median = middle value when ordered<br>
+        Mode   = most frequent value<br>
+        Range  = max − min
+      </div>
+    </div>
+    <div class="example-box" style="border-left-color:var(--ext);">
+      <div class="example-label" style="color:var(--ext);">Cumulative frequency — Extended</div>
+      <div class="example-math">
+        LQ  = lower quartile  (25th percentile)<br>
+        UQ  = upper quartile  (75th percentile)<br>
+        IQR = UQ − LQ<br>
+        Median = 50th percentile
+      </div>
+    </div>
+  </div>
+
+  <div class="ch-nav">
+    <div class="ch-nav-btn" onclick="showPage('ch33')">
+      <div class="ch-nav-dir">← Previous</div><div class="ch-nav-name">Ch 33 · Probability</div>
+    </div>
+    <div class="ch-nav-btn right" onclick="showPage('home')">
+      <div class="ch-nav-dir">↑ Back to top</div><div class="ch-nav-name">Home · All topics</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Placeholder pages for chapters not fully detailed -->
+<script>
+const placeholderChapters = {
+  ch3:  {t:"Calculations and order", topic:"Topic 1 · Number", syl:"E1.6, E1.13", pg:24, prev:'ch2', next:'ch4'},
+  ch4:  {t:"Integers, fractions, decimals and percentages", topic:"Topic 1 · Number", syl:"E1.5, E1.8", pg:30, prev:'ch3', next:'ch5'},
+  ch5:  {t:"Further percentages", topic:"Topic 1 · Number", syl:"E1.12", pg:43, prev:'ch4', next:'ch6'},
+  ch6:  {t:"Ratio and proportion", topic:"Topic 1 · Number", syl:"E1.11", pg:50, prev:'ch5', next:'ch7'},
+  ch8:  {t:"Money and finance", topic:"Topic 1 · Number", syl:"E1.15–E1.17", pg:73, prev:'ch7', next:'ch9'},
+  ch9:  {t:"Time", topic:"Topic 1 · Number", syl:"E1.14", pg:83, prev:'ch8', next:'ch10'},
+  ch10: {t:"Set notation and Venn diagrams", topic:"Topic 1 · Number", syl:"E1.2", pg:85, prev:'ch9', next:'ch11'},
+  ch12: {t:"Algebraic indices", topic:"Topic 2 · Algebra & Graphs", syl:"E2.4", pg:122, prev:'ch11', next:'ch13'},
+  ch14: {t:"Linear programming", topic:"Topic 2 · Algebra & Graphs", syl:"E2.8", pg:147, prev:'ch13', next:'ch15'},
+  ch15: {t:"Sequences", topic:"Topic 2 · Algebra & Graphs", syl:"E2.9, E2.10", pg:153, prev:'ch14', next:'ch16'},
+  ch16: {t:"Proportion", topic:"Topic 2 · Algebra & Graphs", syl:"E2.11", pg:166, prev:'ch15', next:'ch17'},
+  ch17: {t:"Graphs in practical situations", topic:"Topic 2 · Algebra & Graphs", syl:"E2.12", pg:172, prev:'ch16', next:'ch18'},
+  ch19: {t:"Differentiation and the gradient function", topic:"Topic 2 · Algebra & Graphs", syl:"E2.14", pg:219, prev:'ch18', next:'ch20'},
+  ch20: {t:"Functions", topic:"Topic 2 · Algebra & Graphs", syl:"E2.15", pg:239, prev:'ch19', next:'ch21'},
+  ch22: {t:"Geometrical vocabulary and construction", topic:"Topic 4 · Geometry", syl:"E4.1–E4.3", pg:282, prev:'ch21', next:'ch23'},
+  ch23: {t:"Similarity and congruence", topic:"Topic 4 · Geometry", syl:"E4.3, E4.4", pg:293, prev:'ch22', next:'ch24'},
+  ch24: {t:"Symmetry", topic:"Topic 4 · Geometry", syl:"E4.5", pg:310, prev:'ch23', next:'ch25'},
+  ch25: {t:"Angle properties", topic:"Topic 4 · Geometry", syl:"E4.6, E4.7", pg:318, prev:'ch24', next:'ch26'},
+  ch26: {t:"Measures", topic:"Topic 5 · Mensuration", syl:"E5.1", pg:346, prev:'ch25', next:'ch27'},
+  ch28: {t:"Bearings", topic:"Topic 6 · Trigonometry", syl:"E6.1", pg:392, prev:'ch27', next:'ch29'},
+  ch30: {t:"Further trigonometry", topic:"Topic 6 · Trigonometry", syl:"E6.4, E6.5", pg:418, prev:'ch29', next:'ch31'},
+  ch31: {t:"Vectors", topic:"Topic 7 · Vectors & Transforms", syl:"E7.1", pg:440, prev:'ch30', next:'ch32'},
+  ch32: {t:"Transformations", topic:"Topic 7 · Vectors & Transforms", syl:"E7.2, E7.3", pg:452, prev:'ch31', next:'ch33'},
+  ch34: {t:"Further probability", topic:"Topic 8 · Probability", syl:"E8.4, E8.5", pg:488, prev:'ch33', next:'ch35'},
+  ch36: {t:"Collecting, displaying and interpreting data", topic:"Topic 9 · Statistics", syl:"E9.1, E9.2", pg:510, prev:'ch35', next:'ch37'},
+  ch37: {t:"Cumulative frequency", topic:"Topic 9 · Statistics", syl:"E9.4", pg:532, prev:'ch36', next:'home'},
+};
+
+for(const [id, d] of Object.entries(placeholderChapters)){
+  const div = document.createElement('div');
+  div.id = 'page-'+id;
+  div.className = 'page';
+  div.innerHTML = `
+    <div class="ch-eyebrow">${d.topic} &nbsp;·&nbsp; ${d.syl}</div>
+    <h1 class="ch-title">${d.t}</h1>
+    <div class="ch-meta">
+      <span class="meta-pill">Page ${d.pg}</span>
+      <span class="meta-pill">Pimentel & Wall, 4th ed.</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:32px;text-align:center;margin:24px 0;">
+      <div style="font-size:13px;color:var(--hint);margin-bottom:8px;">Syllabus reference</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;color:var(--text);margin-bottom:20px;">${d.syl}</div>
+      <div style="font-size:13px;color:var(--muted);">Full chapter content for <strong>${d.t}</strong>.<br>Use the navigation below to continue through the syllabus.</div>
+    </div>
+    <div class="ch-nav">
+      <div class="ch-nav-btn" onclick="showPage('${d.prev}')">
+        <div class="ch-nav-dir">← Previous</div>
+        <div class="ch-nav-name">Go back</div>
+      </div>
+      <div class="ch-nav-btn right" onclick="showPage('${d.next}')">
+        <div class="ch-nav-dir">Next →</div>
+        <div class="ch-nav-name">Continue</div>
+      </div>
+    </div>`;
+  document.querySelector('.content').appendChild(div);
+}
+</script>
+
+</div><!-- content -->
+</main>
+
+<!-- RIGHT PANEL -->
+<aside id="rpanel">
+  <div>
+    <div class="rp-title">Most visited</div>
+    <ul class="rp-list">
+      <li><button onclick="showPage('ch13')">Equations & inequalities<span class="rp-num">Ch 13</span></button></li>
+      <li><button onclick="showPage('ch29')">Trigonometry<span class="rp-num">Ch 29</span></button></li>
+      <li><button onclick="showPage('ch27')">Area & volume<span class="rp-num">Ch 27</span></button></li>
+      <li><button onclick="showPage('ch21')">Straight line graphs<span class="rp-num">Ch 21</span></button></li>
+      <li><button onclick="showPage('ch33')">Probability<span class="rp-num">Ch 33</span></button></li>
+      <li><button onclick="showPage('ch7')">Standard form<span class="rp-num">Ch 7</span></button></li>
+    </ul>
+  </div>
+  <div>
+    <div class="rp-title">Extended only</div>
+    <ul class="rp-list">
+      <li><button onclick="showPage('ch14')">Linear programming<span class="rp-num">Ch 14</span></button></li>
+      <li><button onclick="showPage('ch19')">Differentiation<span class="rp-num">Ch 19</span></button></li>
+      <li><button onclick="showPage('ch20')">Functions<span class="rp-num">Ch 20</span></button></li>
+      <li><button onclick="showPage('ch30')">Further trig<span class="rp-num">Ch 30</span></button></li>
+      <li><button onclick="showPage('ch34')">Further probability<span class="rp-num">Ch 34</span></button></li>
+      <li><button onclick="showPage('ch37')">Cumulative freq.<span class="rp-num">Ch 37</span></button></li>
+    </ul>
+  </div>
+  <div>
+    <div class="rp-title">Quick formulas</div>
+    <div class="formula-card">
+      <div class="formula-title">Quadratic formula</div>
+      <div class="formula-math">x = (−b ± √(b²−4ac)) / 2a</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-title">Circle</div>
+      <div class="formula-math">A = πr²<br>C = 2πr</div>
+    </div>
+    <div class="formula-card">
+      <div class="formula-title">Sine rule</div>
+      <div class="formula-math">a/sinA = b/sinB = c/sinC</div>
+      <div class="formula-note">Extended only</div>
+    </div>
+  </div>
+</aside>
+
+</div><!-- layout -->
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo(0,0);
+  }
+  // update sidebar active
+  document.querySelectorAll('.sb-ch').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tb-nav-link').forEach(b => b.classList.remove('active'));
+  if (id === 'home') {
+    document.querySelector('.tb-nav-link').classList.add('active');
+  }
+  // try to match sidebar button
+  document.querySelectorAll('.sb-ch').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'"+id+"'")) {
+      b.classList.add('active');
+    }
+  });
+}
+
+function showTopic(n) {
+  showPage('home');
+  setTimeout(() => {
+    const sections = document.querySelectorAll('.topic-section');
+    if (sections[n-1]) sections[n-1].scrollIntoView({behavior:'smooth', block:'start'});
+  }, 50);
+}
+</script>
+</body>
+</html>
